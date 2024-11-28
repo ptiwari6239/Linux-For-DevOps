@@ -35,3 +35,25 @@
  - /proc: A pseudo file system that provides information about running processes and system information
  - /usr: Contains most of the user commands and utilities 
  - /var: Holds variable files such as logs and temporary files
+
+## Inodes , Soft Links, Hard Links
+
+### Inodes
+- An inode is a data structure in a filesystem that stores metadata about a file or directory (e.g., file size, permissions, timestamps, and pointers to the actual data blocks).
+- Each file or directory has a unique inode number in its filesystem.</br>
+`` 
+ls -i filename``
+
+### Hard Links
+-  A hard link is a direct reference (alias) to the same inode as another file. Multiple filenames can point to the same data on disk.
+- Shares the same inode number as the original file.
+- Changes to the content of the file reflect across all hard links.
+- Deleting a hard link does not delete the data until all links are removed.
+- Cannot link across different filesystems or partitions.</br>
+``ln original.txt hardlink.txt``
+### Soft link
+- A soft link is a special type of file that points to the path of another file or directory (like a shortcut).
+- Has a different inode than the original file.
+- Deleting the original file leaves the soft link broken ("dangling link").
+- Can link across different filesystems or partitions.</br>
+``ln -s originalfile.txt softlink.txt``
