@@ -57,3 +57,21 @@ ls -i filename``
 - Deleting the original file leaves the soft link broken ("dangling link").
 - Can link across different filesystems or partitions.</br>
 ``ln -s originalfile.txt softlink.txt``
+
+# Permissions
+## chmod, chown, chgrp, umask,SUID,SGID,sticky bit
+### chmod
+- modifies the permissions of files or directory
+### chown 
+-   changes the owernship  of the file or directory to a specificied user or user:group.
+### chgrp 
+- changes the group owernship of a file or directory
+### umask 
+- umask is like a default setting for file and directory permission in linux. when we create a new file or directory it decides 
+what permissions should not be given to others .   
+### SUID
+- Allows a file to be executed with the permissions of the file's owner, regardless of who runs it.
+### SGID
+- Ensure that the file is executed with the permissions of the file's group.
+### sticky bit
+- Restricts file deletion in a directory to only the file owner,directory owner or root.even if others have write permission.
