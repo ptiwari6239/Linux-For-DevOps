@@ -75,3 +75,122 @@ what permissions should not be given to others .
 - Ensure that the file is executed with the permissions of the file's group.
 ### sticky bit
 - Restricts file deletion in a directory to only the file owner,directory owner or root.even if others have write permission.
+# Systemd
+- Systemd is a modern init system and service manager for Linux, designed to improve boot performance and manage services, processes, and system states. Its architecture is modular and composed of multiple components working together.
+## Key Components of the Systemd Architecture
+1. PID 1 (Primary Init Process)
+
+    Role: Systemd is the first process (PID 1) started by the kernel during system boot.
+    Responsibilities:
+    - Initializes the system.
+    - Spawns and monitors services.
+    - Handles system shutdown and reboot.
+
+2. Unit Files
+
+    Role: Define how system resources are managed. These files represent services, devices, mount points, and more.
+    Types:
+       - Service Units ``(.service)``: Define services ``(e.g., nginx.service)``.
+       - Socket Units ``(.socket)``: Handle network or IPC sockets.
+       - Timer Units ``(.timer)``: Schedule tasks (cron-like functionality).
+       - Target Units ``(.target)``: Represent states ``(e.g., multi-user.target for multi-user mode)``.
+
+3. The Journal (Logging System)
+
+    Role: Centralized logging for all system events.
+    Features:
+       - Binary format for efficient storage.
+       - Queryable using journalctl.
+
+4. Dependency Management
+
+    Role: Services and units have defined dependencies, ensuring the proper order of execution.
+    Key Directives:
+      -  ``After=:`` Start after a specific unit.
+      -  ``Requires=:`` Depend on another unit.
+
+## Core Systemd Utilities
+1. systemctl
+
+    - Central command for controlling services and units.
+
+2. journalctl
+
+    - Query logs from the journal.
+
+3. systemd-analyze
+
+    - Analyze system performance and boot time.
+## Boot Process with Systemd
+1. Kernel Initialization:
+
+    - The Linux kernel loads and starts systemd as PID 1.
+
+2. Target Activation:
+
+    - Systemd loads the default target ``(e.g., multi-user.target)``.
+
+3. Service Initialization:
+
+    - Services are started based on their dependencies.
+
+4. System Ready:
+
+    - When all critical units are active, the system reaches the desired target state.
+
+## Systemd Architecture Diagram
+
+    Kernel
+    ⬇
+    Systemd (PID 1)
+    ⬇
+    Unit Manager
+        Unit Files: .service, .socket, .timer, .target.
+        Dependencies: Manages relationships between units.
+        ⬇
+    The Journal
+        Logs for services, kernel messages, and more.
+        ⬇
+    User Interaction
+        Tools: systemctl, journalctl, systemd-analyze.
+
+## Basic commands for SystemD
+1. Starting a service
+``sudo systemctl start <serivce name>``
+2. Stoping a service
+``sudo systemctl stop <service name>``
+3. Checking a services
+``sudo systemctl status <service name>``
+4. Restarting a service
+``sudo systemctl restart <service name>``
+5. Enabling and disabling a serivce
+``sudo systemctl enable/disable <service name>``
+6. Reloading configuration
+ if you change a serive's configuration file,use ``sudo systemctl daemon-reload`` to apply the
+  changes
+7. Editing and creating service files
+``sudo systemctl edit <services_name>``
+## Understanding Units in Systemd
+### Definition of Units 
+- units are the objects that systemd manages,including services,timers,mounts and more.
+A service is a specific type of unit
+### Service Files
+- Service files are text files that define how systemd manages a service.they contains sectiosn 
+[Unit],[service], and [install],each serving different purpose.
+### Structure of a service file
+1. Unit section
+- contains general information about the unit,such as its description and 
+dependencies.
+2. service section
+- defines how the service operates, including the command to start it 
+(ExecStart) and its type(eg, simple ,notify)
+3. Install section
+- configures how the unit is enabled or disabled, specifying dependencies
+and run levels
+### Common Directories for Unit files
+- /etc/systemd/system/
+     - highest priority directory for custom unit files
+- /run/systemd/system/
+    - contains runtime units
+- /lib/systemd/systemd
+    - default location for installed service files.
