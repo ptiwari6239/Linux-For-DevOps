@@ -192,5 +192,28 @@ and run levels
      - highest priority directory for custom unit files
 - /run/systemd/system/
     - contains runtime units
-- /lib/systemd/systemd
-    - default location for installed service files.
+- /usr/lib/systemd/system
+     - from locally installed packages (via. apt-get)
+- /lib/systemd/system
+    - standard unit files location (your distro maintainers)
+
+## RunLevel and Targets
+### RunLevels
+1. Defination
+- A runlevel is a state of init that defines which system serivces are operating.
+- it a mode or state in which a linux system operates.
+- Runlevels are represented by single-digit integes(0-6).
+2. Initialization.
+- when a linux systemd boots,the init process starts first.
+- the init process is responsible for:
+     - running startup scripts
+     - initializing hardware.
+     - bringing up the network
+     - starting the graphical interface 
+3. Default Runlevel
+- the init process determines the default runlevel from system configuration
+- it executes the start scripts associated with the 
+
+4. purpose of runlevel
+- define the system's operational state.
+- allow access to different combinations of processes and system configurations.
