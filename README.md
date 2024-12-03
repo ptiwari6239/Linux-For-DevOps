@@ -217,3 +217,35 @@ and run levels
 4. purpose of runlevel
 - define the system's operational state.
 - allow access to different combinations of processes and system configurations.
+
+# Logging In Linux
+- Logging in linux uses ``rsyslog`` daemon. This serivce is responsible for listening to log messages from different 
+parts of linux system and routing the message to an appropriate log file in the ``/var/log/`` directory. 
+- ``rsyslog.conf`` daemon gets its configuration information from the ``rsyslog.conf`` file.Located under ``/etc`` directory.
+## Rotating Log files
+- Rotating log files allows log files instead of purging or deleting to override them and and optionally compressed.
+- A log file can thus have multiple old versions remaining online. These files will go back over a period of time and will represent the backlog.
+- The rotation is initiated through the ``logrotate`` utility. Located under ``/etc``.
+
+## Essential log files
+
+1. Boot log
+- located in ``/var/log/boot.log``, it contains messages related to the boot process, useful for troubleshooting boot issues.
+2. apt log
+- found in ``/var/log/apt`` this log tracks packages installations and updates on debian ssytem,helping to identify issues with installed
+packages.
+3. wtmp log
+- a binary log located ``/var/log/wtmp``, it records login and logout events,use the ``last`` command to view its contents.
+4. authorization log
+- found in ``/var/log/auth.log`` on debain/ubuntu systems,it records login attempts and is useful for troubleshooting 
+authentication issues.
+5. system log(syslog)
+- located at ``/var/log/syslog``, it logs system events and is helpful for 
+troubleshooting hardware issues
+6. D Message Log(dmesg)
+-  this log contains kernel-related messages and is useful
+for hardware troubleshooting. Access it using the ``dmesg`` command
+## using journalctl
+- the ``journalctl`` command is specific to systemd and allows
+inspection of logs for specific services. for examples
+``journalctl -u ssh`` shows logs related to the ssh services.
