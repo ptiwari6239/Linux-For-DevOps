@@ -43,7 +43,8 @@
         to manage the service of docker daemon 
 3. /run/: File system for system packages to place runtime data, socket files and similar.
     - /run/docker: this is used by docker to store runtime data. This data is temp and exits as long as the docker service.
-    - it stores information such as  containerd, libnetwork, netns, swarm and most important **runtime-runc which stores logs of running containers, such as PID of parent process which started the container and etc.**
+    - it stores information such as  containerd, libnetwork, netns, swarm and most important **runtime-runc which stores logs of running containers
+    - ``/run/docker/runtime-runc/``: It has a folder moby which stores ``state.json`` file of running container. This file stores information such as  **PID of parent process which started the container, linux capabilities used , system call etc**
 4. /usr/bin: This stores essential executable programs and os commands . That is why it store ``docker`` which is cli also it has ``dockerd`` as a cli .
 ## Inodes , Soft Links, Hard Links
 
